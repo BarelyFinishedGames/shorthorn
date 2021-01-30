@@ -38,10 +38,10 @@ const files = [
             "\n" +
             "  \n" +
             "The bee, of course, flies anyway\n"},
-    {text: "pictures", parent: 1, id: 5},
+    {text: "pictures", children: [7, 8], parent: 1, id: 5},
     {text: "def", parent: 1, id: 6},
-    {text: "picture-0", parent: 6, id: 7},
-    {text: "picture-1", parent: 6, id: 8}
+    {text: "picture-0", parent: 5, id: 7},
+    {text: "picture-1", parent: 5, id: 8}
 ]
 
 scene.create = function () {
@@ -94,13 +94,10 @@ function fileWindow(parentID, down) {
 
     let x = 0
     let y = 0
-    for (let i = 0; i < numFiles; i++) {
-        let currentFile = files[i]
-
-        if (currentFile.parent !== parentID) {
-            continue;
-        }
-
+    
+    let i = 0;
+    console.log(files.filter(file => file.parent === parentID))
+    files.filter(file => file.parent === parentID).forEach(currentFile => {
         if (i !== 0 && i % columns === 0) {
             y += fileSize + margin
             x = 0
@@ -109,8 +106,7 @@ function fileWindow(parentID, down) {
         file.displayWidth = fileSize
         file.displayHeight = fileSize
 
-        const txt = this.add.text(origin.x + x + margin, origin.y + y + fileSize + 5, files[i].text, textConfig);
-
+        const txt = this.add.text(origin.x + x + margin, origin.y + y + fileSize + 5, currentFile.text, textConfig);
 
         if (currentFile.children) {
             file.on('pointerdown', () => {
@@ -128,7 +124,10 @@ function fileWindow(parentID, down) {
         objects.push(background)
         objects.push(graphics)
         x += fileSize + margin
-    }
+
+        i++
+    })
+    
     return objects
 }
 
