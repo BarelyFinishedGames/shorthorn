@@ -23,7 +23,7 @@ const margin = 10
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
 const files = [
-    {text: "pictures", children: [1, 2], id: 0, parent: -1},
+    {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
     {text: "abc", parent: 0, id: 1, children: [3]},
     {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
             "of aviation,\n" +
@@ -38,8 +38,10 @@ const files = [
             "\n" +
             "  \n" +
             "The bee, of course, flies anyway\n"},
-    {text: "456", parent: 1, id: 5},
-    {text: "def", parent: 1, id: 6}
+    {text: "pictures", parent: 1, id: 5},
+    {text: "def", parent: 1, id: 6},
+    {text: "picture-0", parent: 6, id: 7},
+    {text: "picture-1", parent: 6, id: 8}
 ]
 
 scene.create = function () {
@@ -47,10 +49,12 @@ scene.create = function () {
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
 
-    myFileWindow = fileWindow(-1, -2)
+    myFileWindow = fileWindow(-1, true)
 }
 
-function fileWindow(parentID,) {
+const directory = []
+
+function fileWindow(parentID, down) {
     if (myFileWindow) {
         for (let obj of myFileWindow) {
             obj.destroy()
@@ -72,11 +76,24 @@ function fileWindow(parentID,) {
     treeUP.on('pointerdown', () => {
         for (let node of files) {
             if (node.id === parentID) {
-                fileWindow(node.parent)
+                directory.pop();
+
+                fileWindow(node.parent, false);
             }
         }
     })
 
+    if (down) {
+        const parent = files.find(file => file.id === parentID);
+    
+        if (parent !== undefined) {
+            directory.push(parent.text);
+        }
+
+        const txt = this.add.text(origin.x + 10 + margin, origin.y + 50 + fileSize + 5, directory.join(' > '), textConfig);
+
+        objects.push(txt);
+    }
 
     let x = 0
     let y = 0
@@ -101,7 +118,7 @@ function fileWindow(parentID,) {
         if (currentFile.children) {
             file.on('pointerdown', () => {
                 console.log("clickedi cklick")
-                fileWindow(currentFile.id)
+                fileWindow(currentFile.id, true)
             })
         }
         if (currentFile.content) {
