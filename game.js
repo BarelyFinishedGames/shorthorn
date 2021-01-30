@@ -89,7 +89,7 @@ function fileWindow(parentID, down) {
             directory.push(parent.text);
         }
 
-        const txt = this.add.text(origin.x + 10 + margin, origin.y + 50 + fileSize + 5, directory.join(' > '), textConfig);
+        const txt = this.add.text(origin.x + 10 + margin, origin.y, directory.join(' > '), textConfig);
 
         objects.push(txt);
     }
