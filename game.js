@@ -21,7 +21,7 @@ scene.preload = function () {
 let myFileWindow = [];
 const fileSize = 75
 const columns = 5
-const margin = 10
+const margin = 30
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
 let files
@@ -101,14 +101,25 @@ function fileWindow(parentID, down) {
     console.log(files.filter(file => file.parent === parentID))
     files.filter(file => file.parent === parentID).forEach(currentFile => {
         if (i !== 0 && i % columns === 0) {
-            y += fileSize + margin
+            y += fileSize + margin + 20
             x = 0
         }
         const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, 'file').setInteractive();
         file.displayWidth = fileSize
         file.displayHeight = fileSize
 
-        const txt = this.add.text(origin.x + x + margin, origin.y + y + fileSize + 5, currentFile.text, textConfig);
+        const text = this.make.text({
+            x: origin.x + x + margin + fileSize/2,
+            y: origin.y + y + fileSize + 50,
+            text: currentFile.text,
+            origin: 0.5,
+            style: {
+                font: 'bold 11px Arial',
+                fill: 'black'
+            }
+        });
+        text.setWordWrapWidth(fileSize, false);
+        const txt = this.add.text(text);
 
         if (currentFile.children) {
             file.on('pointerdown', () => {
