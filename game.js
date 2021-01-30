@@ -155,7 +155,7 @@ function openFileDialog(file) {
         });
         text.setWordWrapWidth(width, false);
         const txt = this.add.text(text);
-        objects.push(txt)
+        objects.push(txt, text)
 
     } else if (file.image) {
 
@@ -174,6 +174,6 @@ function openFileDialog(file) {
     objects.push(btnClose)
 
     btnClose.on('pointerdown', () => {
-        objects.forEach(obj => obj.destroy())
+        objects.forEach(obj => {console.log(obj);obj.destroy()})
     })
 }
