@@ -16,7 +16,7 @@ scene.preload = function () {
 }
 
 
-let myFileWindow;
+let myFileWindow = [];
 const fileSize = 75
 const columns = 5
 const margin = 10
@@ -55,11 +55,8 @@ scene.create = function () {
 const directory = []
 
 function fileWindow(parentID, down) {
-    if (myFileWindow) {
-        for (let obj of myFileWindow) {
-            obj.destroy()
-        }
-    }
+    myFileWindow.forEach(obj => obj.destroy())
+
     let objects = []
     const numFiles = files.length
     const origin = new Phaser.Math.Vector3(100, 100, 0)
@@ -74,12 +71,12 @@ function fileWindow(parentID, down) {
     treeUP.displayWidth = 20
     treeUP.displayHeight = 20
     treeUP.on('pointerdown', () => {
-        for (let node of files) {
-            if (node.id === parentID) {
-                directory.pop();
+        const node = files.find(node => node.id === parentID)
 
-                fileWindow(node.parent, false);
-            }
+        if (node !== undefined) {
+            directory.pop();
+
+            fileWindow(node.parent, false);
         }
     })
 
@@ -164,8 +161,6 @@ function openFileDialog(file) {
     const objects = [txt, text, background, graphics, btnClose]
 
     btnClose.on('pointerdown', () => {
-        for (let obj of objects) {
-            obj.destroy()
-        }
+        objects.forEach(obj => obj.destroy())
     })
 }
