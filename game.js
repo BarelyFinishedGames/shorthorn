@@ -13,6 +13,8 @@ scene.preload = function () {
     this.load.setBaseURL('/');
 
     this.load.image('file', 'file.png');
+    this.load.image('catImage', 'cat-23.gif');
+
 }
 
 
@@ -22,33 +24,33 @@ const columns = 5
 const margin = 10
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
-const files = [
-    {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
-    {text: "abc", parent: 0, id: 1, children: [3]},
-    {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
-            "of aviation,\n" +
-            "\n" +
-            "  \n" +
-            "there is no way a bee\n" +
-            "should be able to fly.\n" +
-            "\n" +
-            "  \n" +
-            "Its wings are too small to get\n" +
-            "its fat little body off the ground.\n" +
-            "\n" +
-            "  \n" +
-            "The bee, of course, flies anyway\n"},
-    {text: "pictures", children: [7, 8], parent: 1, id: 5},
-    {text: "def", parent: 1, id: 6},
-    {text: "picture-0", parent: 5, id: 7},
-    {text: "picture-1", parent: 5, id: 8}
-]
-
+let files
 scene.create = function () {
 
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
 
+    files = [
+        {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
+        {text: "abc", parent: 0, id: 1, children: [3]},
+        {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+                "of aviation,\n" +
+                "\n" +
+                "  \n" +
+                "there is no way a bee\n" +
+                "should be able to fly.\n" +
+                "\n" +
+                "  \n" +
+                "Its wings are too small to get\n" +
+                "its fat little body off the ground.\n" +
+                "\n" +
+                "  \n" +
+                "The bee, of course, flies anyway\n"},
+        {text: "pictures", children: [7, 8], parent: 1, id: 5},
+        {text: "def", parent: 1, id: 6},
+        {text: "cat picture", parent: 5, id: 7, image: 'catImage'},
+        {text: "picture-1", parent: 5, id: 8}
+    ]
     myFileWindow = fileWindow(-1, true)
 }
 
@@ -82,7 +84,7 @@ function fileWindow(parentID, down) {
 
     if (down) {
         const parent = files.find(file => file.id === parentID);
-    
+
         if (parent !== undefined) {
             directory.push(parent.text);
         }
@@ -94,7 +96,7 @@ function fileWindow(parentID, down) {
 
     let x = 0
     let y = 0
-    
+
     let i = 0;
     console.log(files.filter(file => file.parent === parentID))
     files.filter(file => file.parent === parentID).forEach(currentFile => {
@@ -114,7 +116,7 @@ function fileWindow(parentID, down) {
                 fileWindow(currentFile.id, true)
             })
         }
-        if (currentFile.content) {
+        if (currentFile.content || currentFile.image) {
             file.on('pointerdown', () => {
                 openFileDialog(currentFile)
             })
@@ -127,7 +129,7 @@ function fileWindow(parentID, down) {
 
         i++
     })
-    
+
     return objects
 }
 
@@ -139,25 +141,37 @@ function openFileDialog(file) {
 
     const graphics = this.add.graphics({fillStyle: {color: 0xc3b9c2}});
     const background = graphics.fillRectShape(rect);
+    let objects = [graphics, background]
+    if (file.content) {
+        const text = this.make.text({
+            x: origin.x + width/2,
+            y: origin.y + height/2,
+            text: file.content,
+            origin: 0.5,
+            style: {
+                font: 'bold 11px Arial',
+                fill: 'black'
+            }
+        });
+        text.setWordWrapWidth(width, false);
+        const txt = this.add.text(text);
+        objects.push(txt)
 
-    var text = this.make.text({
-        x: origin.x + width/2,
-        y: origin.y + height/2,
-        text: file.content,
-        origin: 0.5,
-        style: {
-            font: 'bold 11px Arial',
-            fill: 'black'
-        }
-    });
-    text.setWordWrapWidth(width, false);
-    const txt = this.add.text(text);
+    } else if (file.image) {
+
+        const imgWidth = width - 8;
+        const imgHeight = height - 8;
+        const sprite = this.add.sprite(origin.x + imgWidth/2 + 4, origin.y + imgHeight/2 + 4, 'catImage')
+        sprite.displayWidth = imgWidth
+        sprite.displayHeight = imgHeight
+        objects.push(sprite)
+    }
 
     const btnClose = this.add.sprite(origin.x + width, origin.y, 'closeButton').setInteractive();
     btnClose.displayWidth = 20
     btnClose.displayHeight = 20
 
-    const objects = [txt, text, background, graphics, btnClose]
+    objects.push(btnClose)
 
     btnClose.on('pointerdown', () => {
         objects.forEach(obj => obj.destroy())
