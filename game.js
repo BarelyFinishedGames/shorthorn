@@ -25,7 +25,19 @@ const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 const files = [
     {text: "pictures", children: [1, 2], id: 0, parent: -1},
     {text: "abc", parent: 0, id: 1, children: [3]},
-    {text: "123", parent: 0, id: 4},
+    {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+            "of aviation,\n" +
+            "\n" +
+            "  \n" +
+            "there is no way a bee\n" +
+            "should be able to fly.\n" +
+            "\n" +
+            "  \n" +
+            "Its wings are too small to get\n" +
+            "its fat little body off the ground.\n" +
+            "\n" +
+            "  \n" +
+            "The bee, of course, flies anyway\n"},
     {text: "456", parent: 1, id: 5},
     {text: "def", parent: 1, id: 6}
 ]
@@ -33,6 +45,7 @@ const files = [
 scene.create = function () {
 
     fileWindow = fileWindow.bind(this)
+    openFileDialog = openFileDialog.bind(this)
 
     myFileWindow = fileWindow(-1, -2)
 }
@@ -50,7 +63,7 @@ function fileWindow(parentID,) {
     const windowHeight = (fileSize * (numFiles / columns)) + ((numFiles / columns) + 2) * margin
     const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, windowWidth, windowHeight);
 
-    const graphics = this.add.graphics({fillStyle: {color: 0xc3b9c2}});
+    const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
     const background = graphics.fillRectShape(rect);
 
     const treeUP = this.add.sprite(origin.x, origin.y, 'treeUP').setInteractive();
@@ -91,6 +104,11 @@ function fileWindow(parentID,) {
                 fileWindow(currentFile.id)
             })
         }
+        if (currentFile.content) {
+            file.on('pointerdown', () => {
+                openFileDialog(currentFile)
+            })
+        }
         objects.push(file)
         objects.push(txt)
         objects.push(background)
@@ -98,4 +116,39 @@ function fileWindow(parentID,) {
         x += fileSize + margin
     }
     return objects
+}
+
+function openFileDialog(file) {
+    const origin = new Phaser.Math.Vector3(100, 100, 0)
+    const width = 400;
+    const height = 400;
+    const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, width, height);
+
+    const graphics = this.add.graphics({fillStyle: {color: 0xc3b9c2}});
+    const background = graphics.fillRectShape(rect);
+
+    var text = this.make.text({
+        x: origin.x + width/2,
+        y: origin.y + height/2,
+        text: file.content,
+        origin: 0.5,
+        style: {
+            font: 'bold 11px Arial',
+            fill: 'black'
+        }
+    });
+    text.setWordWrapWidth(width, false);
+    const txt = this.add.text(text);
+
+    const btnClose = this.add.sprite(origin.x + width, origin.y, 'closeButton').setInteractive();
+    btnClose.displayWidth = 20
+    btnClose.displayHeight = 20
+
+    const objects = [txt, text, background, graphics, btnClose]
+
+    btnClose.on('pointerdown', () => {
+        for (let obj of objects) {
+            obj.destroy()
+        }
+    })
 }
