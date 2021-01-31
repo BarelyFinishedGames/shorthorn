@@ -32,7 +32,7 @@ function showTextfile(file, x, y) {
     btnClose.displayWidth = closeBtnSize
     btnClose.displayHeight = closeBtnSize
 
-    let objects = [background, text, btnClose, title]//[graphics, background]
+    let objects = [background, text, btnClose, title]
 
     btnClose.on('pointerdown', () => {
         objects.forEach(obj => {
