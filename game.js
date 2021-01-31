@@ -10,12 +10,15 @@ const game = new Phaser.Game(config);
 
 const fileIcon = 'fileIcon'
 const dirIcon = 'directoryIcon'
+const closeIcon = 'closeIcon'
+
 scene.preload = function () {
     this.load.setBaseURL('/sprites');
 
     this.load.image(fileIcon, 'file.png');
     this.load.image(dirIcon, 'directory.png');
     this.load.image('catImage', 'cat-23.gif');
+    this.load.image(closeIcon, 'closebtn.png');
 
 }
 
@@ -216,9 +219,10 @@ function openFileDialog(file) {
         objects.push(sprite)
     }
 
-    const btnClose = this.add.sprite(origin.x + width, origin.y, 'closeButton').setInteractive();
-    btnClose.displayWidth = 20
-    btnClose.displayHeight = 20
+    const closeBtnSize = 20
+    const btnClose = this.add.sprite(origin.x + width - closeBtnSize/2, origin.y + closeBtnSize / 2, closeIcon).setInteractive();
+    btnClose.displayWidth = closeBtnSize
+    btnClose.displayHeight = closeBtnSize
 
     objects.push(btnClose)
 
