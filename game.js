@@ -96,7 +96,8 @@ const objectives = {
     final: {
         func: function () {
             setTimeout(function() {
-                content = "That was a weird one, gotta admit that. But at least the directory tree validator is up and running again. So yeah, your System is recovered, congrats!"
+                content = "That was a weird one, gotta admit that. But at least the directory tree validator is up and running again."
+                + "\n \n" + "So yeah, your System is recovered, congrats!"
                 myDialog(this)
             }, 500)
 
