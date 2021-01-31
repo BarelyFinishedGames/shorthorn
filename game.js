@@ -142,8 +142,7 @@ scene.create = function () {
                 "its fat little body off the ground.\n" +
                 "\n" +
                 "  \n" +
-                "The bee, of course, flies anyway\n",
-            objective: objectives.something
+                "The bee, of course, flies anyway\n"
         },
 
 
