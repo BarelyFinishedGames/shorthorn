@@ -59,6 +59,7 @@ scene.create = function () {
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
     myDialog = myDialog.bind(this)
+    createFile = createFile.bind(this)
 
     createTaskbar()
     files = [
@@ -85,12 +86,13 @@ scene.create = function () {
         {icon: fileIcon, name: "cat picture", parent: 5, id: 7, image: 'catImage'},
         {icon: fileIcon, name: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
-    myFileWindow = fileWindow(-1, true)
+
     dialog = myDialog(this)
 
+    createFile(files[0], 10 + fileSize/2,10 + fileSize/2)
 }
 
-const directory = []
+let directory = []
 
 function fileWindow(parentID, down) {
     myFileWindow.forEach(obj => obj.destroy())
@@ -114,10 +116,10 @@ function fileWindow(parentID, down) {
         if (node !== undefined) {
             directory.pop();
 
-            fileWindow(node.parent, false);
+            myFileWindow = fileWindow(node.parent, false);
         }
     })
-
+    objects.push(treeUP)
     if (down) {
         const parent = files.find(file => file.id === parentID);
 
@@ -141,30 +143,11 @@ function fileWindow(parentID, down) {
             x = 0
         }
 
-        const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, currentFile.icon).setInteractive();
-        file.displayWidth = fileSize
-        file.displayHeight = fileSize
+        const fileX = origin.x + fileSize / 2 + margin + x
+        const fileY = origin.y + fileSize / 2 + margin + y
+        let fileObjs = createFile(currentFile, fileX, fileY,)
 
-        const text = this.make.text({
-            x: origin.x + x + margin + fileSize/2,
-            y: origin.y + y + fileSize + 50,
-            text: currentFile.name,
-            origin: 0.5,
-            style: {
-                font: 'bold 11px Arial',
-                fill: 'black'
-            }
-        });
-        text.setWordWrapWidth(fileSize, false);
-        const txt = this.add.text(text);
-
-
-        file.on('pointerdown', () => {
-            handleFileClick(currentFile)
-        })
-
-        objects.push(file)
-        objects.push(txt)
+        fileObjs.forEach(obj => objects.push(obj))
         objects.push(background)
         objects.push(graphics)
         x += fileSize + margin
@@ -172,14 +155,51 @@ function fileWindow(parentID, down) {
         i++
     })
 
+    const closeBtnSize = 20
+    const btnClose = this.add.sprite(origin.x + windowWidth - closeBtnSize/2, origin.y + closeBtnSize / 2, closeIcon).setInteractive();
+    btnClose.displayWidth = closeBtnSize
+    btnClose.displayHeight = closeBtnSize
+
+    objects.push(btnClose)
+
+    btnClose.on('pointerdown', () => {
+        objects.forEach(obj => {console.log(obj);obj.destroy()})
+        directory = []
+    })
     return objects
+}
+
+function createFile(f, x,y) {
+    const file = this.add.sprite(x,y, f.icon).setInteractive();
+    file.displayWidth = fileSize
+    file.displayHeight = fileSize
+
+    const text = this.make.text({
+        x: x,
+        y: y + 50,
+        text: f.name,
+        origin: 0.5,
+        style: {
+            font: 'bold 11px Arial',
+            fill: 'black'
+        }
+    });
+    text.setWordWrapWidth(fileSize, false);
+    const txt = this.add.text(text);
+
+
+    file.on('pointerdown', () => {
+        handleFileClick(f)
+    })
+
+    return [file, text, txt]
 }
 
 function handleFileClick(file) {
 
     if (file.children) {
             console.log("clickedi cklick")
-            fileWindow(file.id, true)
+            myFileWindow = fileWindow(file.id, true)
     }
     if (file.content || file.image) {
             openFileDialog(file)
