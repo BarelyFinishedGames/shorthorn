@@ -77,6 +77,7 @@ scene.preload = function () {
 
 
 let myFileWindow = [];
+
 const fileSize = 75
 const columns = 5
 const margin = 30
@@ -113,7 +114,6 @@ const objectives = {
 }
 
 scene.create = function () {
-
     createTaskbar = createTaskbar.bind(this)
     fileWindow = fileWindow.bind(this)
     showImage = showImage.bind(this)
@@ -178,14 +178,13 @@ scene.create = function () {
         {icon: imgIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside'},
         {icon: imgIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman'},
         {icon: imgIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me'}
-
-
     ]
 
     dialog = myDialog(this)
 
     createFile(files[0], 120 + fileSize/2,10 + fileSize/2)
     createFile({icon: trashcan, name: "Recycle Bin", parent: -1}, 10 + fileSize/2, 10 + fileSize/2)
+
     const screensaver = this.add.sprite(1024/2, 768/2, 'screensaver').setInteractive()
     createTaskbar(screensaver)
 }
@@ -214,6 +213,7 @@ function fileWindow(parentID, down) {
             myFileWindow = fileWindow(node.parent, false);
         }
     })
+
     objects.push(treeUP)
     if (down) {
         const parent = files.find(file => file.id === parentID);
@@ -231,7 +231,7 @@ function fileWindow(parentID, down) {
     let y = 0
 
     let i = 0;
-    console.log(files.filter(file => file.parent === parentID))
+
     files.filter(file => file.parent === parentID).forEach(currentFile => {
         if (i !== 0 && i % columns === 0) {
             y += fileSize + margin + 20
@@ -258,9 +258,10 @@ function fileWindow(parentID, down) {
     objects.push(btnClose)
 
     btnClose.on('pointerdown', () => {
-        objects.forEach(obj => {console.log(obj);obj.destroy()})
+        objects.forEach(obj => obj.destroy())
         directory = []
     })
+
     return objects
 }
 
@@ -279,6 +280,7 @@ function createFile(f, x,y) {
             fill: 'black'
         }
     });
+
     text.setWordWrapWidth(fileSize, true);
     const txt = this.add.text(text);
 
@@ -293,20 +295,21 @@ function createFile(f, x,y) {
 function handleFileClick(file) {
 
     if (file.children) {
-            console.log("clickedi cklick")
             myFileWindow = fileWindow(file.id, true)
     }
+
     if (file.image) {
         showImage(file, 100, 100)
     }
+
     if (file.content) {
         showTextfile(file, 100,100)
     }
+
     if (file.objective) {
         const uncompleteDependency = file.objective.depends.find((key) => objectives[key].complete !== true)
         if (!uncompleteDependency) {
             file.objective.complete = true
-            console.log("completed objective " + JSON.stringify(file.objective))
             file.objective.func()
         }
     }

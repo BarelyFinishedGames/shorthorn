@@ -30,9 +30,6 @@ function showImage(file, x, y) {
     let objects = [background, btnClose, title, image]
 
     btnClose.on('pointerdown', () => {
-        objects.forEach(obj => {
-            console.log(obj);
-            obj.destroy()
-        })
+        objects.forEach(obj => obj.destroy())
     })
 }

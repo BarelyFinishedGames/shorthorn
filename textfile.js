@@ -35,9 +35,6 @@ function showTextfile(file, x, y) {
     let objects = [background, text, btnClose, title]
 
     btnClose.on('pointerdown', () => {
-        objects.forEach(obj => {
-            console.log(obj);
-            obj.destroy()
-        })
+        objects.forEach(obj => obj.destroy())
     })
 }
