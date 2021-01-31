@@ -25,6 +25,17 @@ const margin = 30
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
 let files
+
+const objectives = {
+    final: function () {
+        alert("you did it")
+
+    },
+    something: function() {
+        alert("oh hai")
+    }
+}
+
 scene.create = function () {
 
     fileWindow = fileWindow.bind(this)
@@ -49,7 +60,7 @@ scene.create = function () {
         {text: "pictures", children: [7, 8], parent: 1, id: 5},
         {text: "def", parent: 1, id: 6},
         {text: "cat picture", parent: 5, id: 7, image: 'catImage'},
-        {text: "picture-1", parent: 5, id: 8}
+        {text: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
     myFileWindow = fileWindow(-1, true)
 }
@@ -121,17 +132,11 @@ function fileWindow(parentID, down) {
         text.setWordWrapWidth(fileSize, false);
         const txt = this.add.text(text);
 
-        if (currentFile.children) {
-            file.on('pointerdown', () => {
-                console.log("clickedi cklick")
-                fileWindow(currentFile.id, true)
-            })
-        }
-        if (currentFile.content || currentFile.image) {
-            file.on('pointerdown', () => {
-                openFileDialog(currentFile)
-            })
-        }
+
+        file.on('pointerdown', () => {
+            handleFileClick(currentFile)
+        })
+
         objects.push(file)
         objects.push(txt)
         objects.push(background)
@@ -142,6 +147,20 @@ function fileWindow(parentID, down) {
     })
 
     return objects
+}
+
+function handleFileClick(file) {
+
+    if (file.children) {
+            console.log("clickedi cklick")
+            fileWindow(file.id, true)
+    }
+    if (file.content || file.image) {
+            openFileDialog(file)
+    }
+    if (file.objective) {
+        file.objective()
+    }
 }
 
 function openFileDialog(file) {
