@@ -11,6 +11,8 @@ const game = new Phaser.Game(config);
 const fileIcon = 'fileIcon'
 const dirIcon = 'directoryIcon'
 const closeIcon = 'closeIcon'
+const startButton = 'startButton'
+const taskbarBackground = 'taskbar'
 
 scene.preload = function () {
     this.load.setBaseURL('/sprites');
@@ -19,6 +21,8 @@ scene.preload = function () {
     this.load.image(dirIcon, 'directory.png');
     this.load.image('catImage', 'cat-23.gif');
     this.load.image(closeIcon, 'closebtn.png');
+    this.load.image(startButton, 'startbtn.png');
+    this.load.image(taskbarBackground, 'taskbar.png');
 
 }
 
@@ -51,9 +55,11 @@ const objectives = {
 
 scene.create = function () {
 
+    createTaskbar = createTaskbar.bind(this)
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
 
+    createTaskbar()
     files = [
         {icon: dirIcon, name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
         {icon: dirIcon, name: "abc", parent: 0, id: 1, children: [3]},
