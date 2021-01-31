@@ -13,6 +13,7 @@ const dirIcon = 'directoryIcon'
 const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
+const notepadWindow = 'notepad'
 
 
 scene.preload = function () {
@@ -50,7 +51,7 @@ scene.preload = function () {
     this.load.image(closeIcon, 'closebtn.png');
     this.load.image(startButton, 'startbtn.png');
     this.load.image(taskbarBackground, 'taskbar.png');
-
+    this.load.image(notepadWindow, 'notepad.png')
 }
 
 
@@ -97,6 +98,7 @@ scene.create = function () {
     openFileDialog = openFileDialog.bind(this)
     myDialog = myDialog.bind(this)
     createFile = createFile.bind(this)
+    showTextfile = showTextfile.bind(this)
 
     createTaskbar()
     files = [
@@ -267,8 +269,11 @@ function handleFileClick(file) {
             console.log("clickedi cklick")
             myFileWindow = fileWindow(file.id, true)
     }
-    if (file.content || file.image) {
+    if (file.image) {
             openFileDialog(file)
+    }
+    if (file.content) {
+        showTextfile(file, 100,100)
     }
     if (file.objective) {
         const uncompleteDependency = file.objective.depends.find((key) => objectives[key].complete !== true)
