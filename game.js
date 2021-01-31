@@ -221,11 +221,11 @@ function fileWindow(parentID, down) {
         if (parent !== undefined) {
             directory.push(parent.name);
         }
-
-        const txt = this.add.text(origin.x + 10 + margin, origin.y + 20, directory.join(' > '), textConfig);
-
-        objects.push(txt);
     }
+
+    const txt = this.add.text(origin.x + 10 + margin, origin.y + 20, directory.join(' > '), textConfig);
+
+    objects.push(txt);
 
     let x = 0
     let y = 0
