@@ -70,7 +70,9 @@ scene.preload = function () {
     this.load.image(imageWindow, 'imageviewer.png')
     this.load.image(trashcan, 'bin.png')
 
+    this.load.image('screensaver', 'screensaver.jpg')
     this.load.audio('popupSound', '../sounds/popup.ogg')
+    this.load.audio('soundtrack', '../sounds/hacked_song.ogg')
 }
 
 
@@ -89,7 +91,7 @@ const objectives = {
     something: {
         func: function() {
             setTimeout(function(){
-                content = "phew, that was a close one. This could have ruined everything you know? We call it the „Publish-everything“ file, so..." 
+                content = "phew, that was a close one. This could have ruined everything you know? We call it the „Publish-everything“ file, so..."
                 + "\n \n" + "The next one is a little tricky: Some recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
                 myDialog(this)
             }, 500)
@@ -123,7 +125,8 @@ scene.create = function () {
     createFile = createFile.bind(this)
     showTextfile = showTextfile.bind(this)
 
-    createTaskbar()
+    this.sound.add('soundtrack').play()
+
     files = [
         {icon: dirIcon, name: "User", children: [1, 2], id: 0, parent: -1},
         {icon: dirIcon, name: "Personal Files", parent: 0, id: 1, children: [3]},
@@ -187,6 +190,8 @@ scene.create = function () {
 
     createFile(files[0], 120 + fileSize/2,10 + fileSize/2)
     createFile({icon: trashcan, name: "Recycle Bin", parent: -1}, 10 + fileSize/2, 10 + fileSize/2)
+    const screensaver = this.add.sprite(1024/2, 768/2, 'screensaver').setInteractive()
+    createTaskbar(screensaver)
 }
 
 let directory = []
