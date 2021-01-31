@@ -2,6 +2,7 @@
 
 function myDialog() {
 
+    this.sound.add('popupSound').play()
     objects = [];
     originX = 800;
     originY = 650;

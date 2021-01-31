@@ -53,6 +53,8 @@ scene.preload = function () {
     this.load.image(taskbarBackground, 'taskbar.png');
     this.load.image(notepadWindow, 'notepad.png')
     this.load.image(imageWindow, 'imageviewer.png')
+
+    this.load.audio('popupSound', '../sounds/popup.ogg')
 }
 
 
