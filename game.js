@@ -14,6 +14,7 @@ const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
 
+
 scene.preload = function () {
     this.load.setBaseURL('/sprites');
 
@@ -34,19 +35,29 @@ const margin = 30
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
 let files
+let content = "hacked";
 
 const objectives = {
     something: {
         func: function() {
-            alert("oh hai")
+            setTimeout(function(){
+                content = "phew, you found it"
+                myDialog(this)
+            }, 500)
+            
+            // alert("oh hai")
         },
         depends: [],
         complete: false,
     },
     final: {
         func: function () {
-            console.log(this)
-            alert("you did it")
+            setTimeout(function() {
+                content = "You did it!"
+                myDialog(this)
+            }, 500)
+            
+            // alert("you did it")
         },
         depends: ['something'],
         complete: false,
@@ -86,7 +97,7 @@ scene.create = function () {
         {icon: fileIcon, name: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
     myFileWindow = fileWindow(-1, true)
-    dialog = myDialog(this)
+    dialog = myDialog(this, "You been haxed")
 
 }
 
