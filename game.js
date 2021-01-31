@@ -20,7 +20,33 @@ scene.preload = function () {
 
     this.load.image(fileIcon, 'file.png');
     this.load.image(dirIcon, 'directory.png');
-    this.load.image('catImage', 'cat-23.gif');
+    this.load.image('boxcat', 'boxcat.gif');
+    this.load.image('contemplating_on', 'contemplating_on_the_vastness_of_beyond.gif')
+    this.load.image('sleepy_cads', 'sleepy_cads.gif')
+    this.load.image('dreamy_fluff2', 'dreamy_fluff2.gif')
+    this.load.image('ball_of_fluff', 'ball_off_fluff.gif')
+    this.load.image('dreamy_fluff', 'dreamy_fluff.gif')
+    this.load.image('faaaast', 'faaaast.gif')
+    this.load.image('flower_fluff', 'flower_fluff.gif')
+    this.load.image('grumpy_fluff', 'grumpy_fluff.gif')
+    this.load.image('have_i_seen_mouse', 'have_i_seen_mouse.gif')
+    this.load.image('let_me_go_hooman', 'let_me_go_hooman.gif')
+    this.load.image('loafy_cads', 'loafy_cads.gif')
+    this.load.image('loafy_cads2', 'loafy_cads_2.gif')
+    this.load.image('majestic_fluff', 'majestic_fluff.gif')
+    this.load.image('me_wants_in', 'me_wants_in.gif')
+    this.load.image('photogenic_fluff', 'photogenic_fluff.gif')
+    this.load.image('sleepy_cads2', 'sleepy_cads2.gif')
+    this.load.image('sleepy_cads3', 'sleepy_cads3.gif')
+    this.load.image('sleepy_cads4', 'sleepy_cads4.gif')
+    this.load.image('sleepy_cads5', 'sleepy_cads5.gif')
+    this.load.image('sleepy_cads6', 'sleepy_cads6.gif')
+    this.load.image('take_break_from_your_bs', 'take_break_from_your_bs.gif')
+    this.load.image('vibin_outside', 'vibin_outside.gif')
+    this.load.image('where_am_i_hooman', 'where_am_i_hooman.gif')
+    this.load.image('why_u_bore_me', 'why_u_bore_me.gif')
+
+
     this.load.image(closeIcon, 'closebtn.png');
     this.load.image(startButton, 'startbtn.png');
     this.load.image(taskbarBackground, 'taskbar.png');
@@ -92,10 +118,39 @@ scene.create = function () {
                 "The bee, of course, flies anyway\n",
             objective: objectives.something
         },
-        {icon: dirIcon, name: "pictures", children: [7, 8], parent: 1, id: 5},
+        {icon: dirIcon, name: "pictures", children: [8], parent: 1, id: 5},
+        {icon: dirIcon, name: "pictures2", children: [9], parent: 1, id: 7},
         {icon: fileIcon, name: "def", parent: 1, id: 6},
-        {icon: fileIcon, name: "cat picture", parent: 5, id: 7, image: 'catImage'},
-        {icon: fileIcon, name: "picture-1", parent: 5, id: 8, objective: objectives.final}
+
+        {icon: fileIcon, name: "boxcat.gif", parent: 5, id: 8, image: 'boxcat'},
+        {icon: fileIcon, name: "sleepy_cads.gif", parent: 5, id: 8, image: 'sleepy_cads', objective: objectives.final},
+        {icon: fileIcon, name: "dreamy_fluff.gif", parent: 5, id: 8, image: 'dreamy_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "dreamy_fluff2.gif", parent: 5, id: 8, image: 'dreamy_fluff2', objective: objectives.final},
+        {icon: fileIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast', objective: objectives.final},
+        {icon: fileIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.final},
+        {icon: fileIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse', objective: objectives.final},
+        {icon: fileIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman', objective: objectives.final},
+        {icon: fileIcon, name: "loafy_cads.gif", parent: 5, id: 8, image: 'loafy_cads', objective: objectives.final},
+        {icon: fileIcon, name: "loafy_cads2.gif", parent: 5, id: 8, image: 'loafy_cads2', objective: objectives.final},
+        {icon: fileIcon, name: "majestic_fluff.gif", parent: 5, id: 8, image: 'majestic_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "me_wants_in.gif", parent: 5, id: 8, image: 'me_wants_in', objective: objectives.final},
+        {icon: fileIcon, name: "on_my_way.gif", parent: 5, id: 8, image: 'on_my_way', objective: objectives.final},
+
+        {icon: fileIcon, name: "photogenic_fluff.gif", parent: 7, id: 9, image: 'photogenic_fluff', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads2.gif", parent: 7, id: 9, image: 'sleepy_cads2', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads3.gif", parent: 7, id: 9, image: 'sleepy_cads3', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads4.gif", parent: 7, id: 9, image: 'sleepy_cads4', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads5.gif", parent: 7, id: 9, image: 'sleepy_cads5', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads6.gif", parent: 7, id: 9, image: 'sleepy_cads6', objective: objectives.final},
+        {icon: fileIcon, name: "take_break_from_your_bs.gif", parent: 7, id: 9, image: 'take_break_from_your_bs', objective: objectives.final},
+        {icon: fileIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside', objective: objectives.final},
+        {icon: fileIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman', objective: objectives.final},
+        {icon: fileIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me', objective: objectives.final}
+
+
     ]
 
     dialog = myDialog(this)
@@ -111,8 +166,8 @@ function fileWindow(parentID, down) {
     let objects = []
     const numFiles = files.length
     const origin = new Phaser.Math.Vector3(100, 100, 0)
-    const windowWidth = fileSize * columns + (columns + 2) * margin
-    const windowHeight = (fileSize * (numFiles / columns)) + ((numFiles / columns) + 2) * margin
+    const windowWidth = 600
+    const windowHeight = 550
     const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, windowWidth, windowHeight);
 
     const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
@@ -187,7 +242,7 @@ function createFile(f, x,y) {
 
     const text = this.make.text({
         x: x,
-        y: y + 50,
+        y: y + 60,
         text: f.name,
         origin: 0.5,
         style: {
@@ -195,7 +250,7 @@ function createFile(f, x,y) {
             fill: 'black'
         }
     });
-    text.setWordWrapWidth(fileSize, false);
+    text.setWordWrapWidth(fileSize, true);
     const txt = this.add.text(text);
 
 
@@ -253,7 +308,7 @@ function openFileDialog(file) {
 
         const imgWidth = width - 8;
         const imgHeight = height - 8;
-        const sprite = this.add.sprite(origin.x + imgWidth/2 + 4, origin.y + imgHeight/2 + 4, 'catImage')
+        const sprite = this.add.sprite(origin.x + imgWidth/2 + 4, origin.y + imgHeight/2 + 4, file.image)
         sprite.displayWidth = imgWidth
         sprite.displayHeight = imgHeight
         objects.push(sprite)
