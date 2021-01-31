@@ -29,6 +29,7 @@ scene.create = function () {
 
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
+    myDialog = myDialog.bind(this)
 
     files = [
         {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
@@ -52,6 +53,8 @@ scene.create = function () {
         {text: "picture-1", parent: 5, id: 8}
     ]
     myFileWindow = fileWindow(-1, true)
+    dialog = myDialog(this)
+
 }
 
 const directory = []
