@@ -8,7 +8,7 @@
     "run": "browser-sync start --server --files ."
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "browser-sync": "^2.26.14"
   }
