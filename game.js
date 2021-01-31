@@ -27,13 +27,21 @@ const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 let files
 
 const objectives = {
-    final: function () {
-        alert("you did it")
-
+    something: {
+        func: function() {
+            alert("oh hai")
+        },
+        depends: [],
+        complete: false,
     },
-    something: function() {
-        alert("oh hai")
-    }
+    final: {
+        func: function () {
+            console.log(this)
+            alert("you did it")
+        },
+        depends: ['something'],
+        complete: false,
+    },
 }
 
 scene.create = function () {
@@ -44,7 +52,8 @@ scene.create = function () {
     files = [
         {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
         {text: "abc", parent: 0, id: 1, children: [3]},
-        {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+        {
+            text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
                 "of aviation,\n" +
                 "\n" +
                 "  \n" +
@@ -56,7 +65,9 @@ scene.create = function () {
                 "its fat little body off the ground.\n" +
                 "\n" +
                 "  \n" +
-                "The bee, of course, flies anyway\n"},
+                "The bee, of course, flies anyway\n",
+            objective: objectives.something
+        },
         {text: "pictures", children: [7, 8], parent: 1, id: 5},
         {text: "def", parent: 1, id: 6},
         {text: "cat picture", parent: 5, id: 7, image: 'catImage'},
@@ -80,7 +91,7 @@ function fileWindow(parentID, down) {
     const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
     const background = graphics.fillRectShape(rect);
 
-    const treeUP = this.add.sprite(origin.x, origin.y, 'treeUP').setInteractive();
+    const treeUP = this.add.sprite(origin.x + 20, origin.y + 10, 'treeUP').setInteractive();
     treeUP.displayWidth = 20
     treeUP.displayHeight = 20
     treeUP.on('pointerdown', () => {
@@ -159,7 +170,12 @@ function handleFileClick(file) {
             openFileDialog(file)
     }
     if (file.objective) {
-        file.objective()
+        const uncompleteDependency = file.objective.depends.find((key) => objectives[key].complete !== true)
+        if (!uncompleteDependency) {
+            file.objective.complete = true
+            console.log("completed objective " + JSON.stringify(file.objective))
+            file.objective.func()
+        }
     }
 }
 
