@@ -10,6 +10,7 @@ const game = new Phaser.Game(config);
 
 const fileIcon = 'fileIcon'
 const dirIcon = 'directoryIcon'
+const confIcon = 'confIcon'
 const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
@@ -58,6 +59,7 @@ scene.preload = function () {
     this.load.image(chatwindow, 'desktopchatwindow.png')
     this.load.image(explorer, 'explorer.png')
     this.load.image(backbtn, 'backbtn.png')
+    this.load.image(confIcon, 'config.png')
 
     this.load.image(notepadWindow, 'notepad.png')
     this.load.image(imageWindow, 'imageviewer.png')
@@ -74,13 +76,15 @@ const textConfig = {fontSize: '14px', color: '#000000', fontFamily: 'Arial'};
 
 let files
 let content = "Hello, this is the cops. We found that you have been hacked by a criminal entity. To recover full access to your system and your data it is vital to follow our instructions."
-+ "Some recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
++ "\n \n" + "There’s a config file somewhere, I cannot remember it’s full name but it was something with kernel in it. You have to click it!"
+
 
 const objectives = {
     something: {
         func: function() {
             setTimeout(function(){
-                content = "That was a weird one, gotta admit that. But at least the directory tree validator is up and running again."
+                content = "phew, that was a close one. This could have ruined everything you know? We call it the „Publish-everything“ file, so..." 
+                + "\n \n" + "The next one is a little tricky: Some recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
                 myDialog(this)
             }, 500)
 
@@ -92,7 +96,7 @@ const objectives = {
     final: {
         func: function () {
             setTimeout(function() {
-                content = "You did it!"
+                content = "That was a weird one, gotta admit that. But at least the directory tree validator is up and running again. So yeah, your System is recovered, congrats!"
                 myDialog(this)
             }, 500)
 
@@ -114,8 +118,11 @@ scene.create = function () {
 
     createTaskbar()
     files = [
-        {icon: dirIcon, name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
-        {icon: dirIcon, name: "abc", parent: 0, id: 1, children: [3]},
+        {icon: dirIcon, name: "User", children: [1, 2], id: 0, parent: -1},
+        {icon: dirIcon, name: "Personal Files", parent: 0, id: 1, children: [3]},
+        {icon: dirIcon, name: "Drivers", parent: 0, id: 2, children: [3]},
+
+        {icon: confIcon, name: "kernel_0.17.23.config", parent: 2, id: 10, objective: objectives.something},
         {
             icon: fileIcon, name: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
                 "of aviation,\n" +
@@ -132,6 +139,8 @@ scene.create = function () {
                 "The bee, of course, flies anyway\n",
             objective: objectives.something
         },
+
+
         {icon: dirIcon, name: "pictures", children: [8], parent: 1, id: 5},
         {icon: dirIcon, name: "pictures2", children: [9], parent: 1, id: 7},
         {icon: fileIcon, name: "def", parent: 1, id: 6},
@@ -143,7 +152,7 @@ scene.create = function () {
         {icon: fileIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff'},
         {icon: fileIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast'},
         {icon: fileIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff'},
-        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.something},
+        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.final},
         {icon: fileIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff'},
         {icon: fileIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse'},
         {icon: fileIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman'},
