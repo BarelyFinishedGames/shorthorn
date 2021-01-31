@@ -8,11 +8,13 @@ const config = {
 };
 const game = new Phaser.Game(config);
 
-
+const fileIcon = 'fileIcon'
+const dirIcon = 'directoryIcon'
 scene.preload = function () {
-    this.load.setBaseURL('/');
+    this.load.setBaseURL('/sprites');
 
-    this.load.image('file', 'file.png');
+    this.load.image(fileIcon, 'file.png');
+    this.load.image(dirIcon, 'directory.png');
     this.load.image('catImage', 'cat-23.gif');
 
 }
@@ -50,10 +52,10 @@ scene.create = function () {
     openFileDialog = openFileDialog.bind(this)
 
     files = [
-        {name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
-        {name: "abc", parent: 0, id: 1, children: [3]},
+        {icon: dirIcon, name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
+        {icon: dirIcon, name: "abc", parent: 0, id: 1, children: [3]},
         {
-            name: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+            icon: fileIcon, name: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
                 "of aviation,\n" +
                 "\n" +
                 "  \n" +
@@ -68,10 +70,10 @@ scene.create = function () {
                 "The bee, of course, flies anyway\n",
             objective: objectives.something
         },
-        {name: "pictures", children: [7, 8], parent: 1, id: 5},
-        {name: "def", parent: 1, id: 6},
-        {name: "cat picture", parent: 5, id: 7, image: 'catImage'},
-        {name: "picture-1", parent: 5, id: 8, objective: objectives.final}
+        {icon: dirIcon, name: "pictures", children: [7, 8], parent: 1, id: 5},
+        {icon: fileIcon, name: "def", parent: 1, id: 6},
+        {icon: fileIcon, name: "cat picture", parent: 5, id: 7, image: 'catImage'},
+        {icon: fileIcon, name: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
     myFileWindow = fileWindow(-1, true)
 }
@@ -126,7 +128,8 @@ function fileWindow(parentID, down) {
             y += fileSize + margin + 20
             x = 0
         }
-        const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, 'file').setInteractive();
+
+        const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, currentFile.icon).setInteractive();
         file.displayWidth = fileSize
         file.displayHeight = fileSize
 
