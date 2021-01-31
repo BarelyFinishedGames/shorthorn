@@ -17,6 +17,9 @@ const taskbarBackground = 'taskbar'
 const chatwindow = 'chatwindow'
 const explorer = 'explorer'
 const backbtn = 'backbtn'
+const imgIcon= 'imgIcon'
+const textIcon='textIcon'
+const trashcan='trashcan'
 
 const notepadWindow = 'notepad'
 const imageWindow = 'imageviewer'
@@ -43,6 +46,7 @@ scene.preload = function () {
     this.load.image('me_wants_in', 'me_wants_in.gif')
     this.load.image('photogenic_fluff', 'photogenic_fluff.gif')
     this.load.image('sleepy_cads2', 'sleepy_cads2.gif')
+    this.load.image('on_my_way', 'on_my_way.gif')
     this.load.image('sleepy_cads3', 'sleepy_cads3.gif')
     this.load.image('sleepy_cads4', 'sleepy_cads4.gif')
     this.load.image('sleepy_cads5', 'sleepy_cads5.gif')
@@ -60,9 +64,11 @@ scene.preload = function () {
     this.load.image(explorer, 'explorer.png')
     this.load.image(backbtn, 'backbtn.png')
     this.load.image(confIcon, 'config.png')
+    this.load.image(imgIcon, 'img.png')
 
     this.load.image(notepadWindow, 'notepad.png')
     this.load.image(imageWindow, 'imageviewer.png')
+    this.load.image(trashcan, 'bin.png')
 
     this.load.audio('popupSound', '../sounds/popup.ogg')
 }
@@ -146,40 +152,41 @@ scene.create = function () {
         {icon: dirIcon, name: "pictures2", children: [9], parent: 1, id: 7},
         {icon: fileIcon, name: "def", parent: 1, id: 6},
 
-        {icon: fileIcon, name: "boxcat.gif", parent: 5, id: 8, image: 'boxcat'},
-        {icon: fileIcon, name: "sleepy_cads.gif", parent: 5, id: 8, image: 'sleepy_cads'},
-        {icon: fileIcon, name: "dreamy_fluff.gif", parent: 5, id: 8, image: 'dreamy_fluff'},
-        {icon: fileIcon, name: "dreamy_fluff2.gif", parent: 5, id: 8, image: 'dreamy_fluff2'},
-        {icon: fileIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff'},
-        {icon: fileIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast'},
-        {icon: fileIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff'},
-        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.final},
-        {icon: fileIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff'},
-        {icon: fileIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse'},
-        {icon: fileIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman'},
-        {icon: fileIcon, name: "loafy_cads.gif", parent: 5, id: 8, image: 'loafy_cads'},
-        {icon: fileIcon, name: "loafy_cads2.gif", parent: 5, id: 8, image: 'loafy_cads2'},
-        {icon: fileIcon, name: "majestic_fluff.gif", parent: 5, id: 8, image: 'majestic_fluff'},
-        {icon: fileIcon, name: "me_wants_in.gif", parent: 5, id: 8, image: 'me_wants_in'},
-        {icon: fileIcon, name: "on_my_way.gif", parent: 5, id: 8, image: 'on_my_way'},
+        {icon: imgIcon, name: "boxcat.gif", parent: 5, id: 8, image: 'boxcat'},
+        {icon: imgIcon, name: "sleepy_cads.gif", parent: 5, id: 8, image: 'sleepy_cads'},
+        {icon: imgIcon, name: "dreamy_fluff.gif", parent: 5, id: 8, image: 'dreamy_fluff'},
+        {icon: imgIcon, name: "dreamy_fluff2.gif", parent: 5, id: 8, image: 'dreamy_fluff2'},
+        {icon: imgIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff'},
+        {icon: imgIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast'},
+        {icon: imgIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff'},
+        {icon: imgIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.final},
+        {icon: imgIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff'},
+        {icon: imgIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse'},
+        {icon: imgIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman'},
+        {icon: imgIcon, name: "loafy_cads.gif", parent: 5, id: 8, image: 'loafy_cads'},
+        {icon: imgIcon, name: "loafy_cads2.gif", parent: 5, id: 8, image: 'loafy_cads2'},
+        {icon: imgIcon, name: "majestic_fluff.gif", parent: 5, id: 8, image: 'majestic_fluff'},
+        {icon: imgIcon, name: "me_wants_in.gif", parent: 5, id: 8, image: 'me_wants_in'},
+        {icon: imgIcon, name: "on_my_way.gif", parent: 5, id: 8, image: 'on_my_way'},
 
-        {icon: fileIcon, name: "photogenic_fluff.gif", parent: 7, id: 9, image: 'photogenic_fluff'},
-        {icon: fileIcon, name: "sleepy_cads2.gif", parent: 7, id: 9, image: 'sleepy_cads2'},
-        {icon: fileIcon, name: "sleepy_cads3.gif", parent: 7, id: 9, image: 'sleepy_cads3'},
-        {icon: fileIcon, name: "sleepy_cads4.gif", parent: 7, id: 9, image: 'sleepy_cads4'},
-        {icon: fileIcon, name: "sleepy_cads5.gif", parent: 7, id: 9, image: 'sleepy_cads5'},
-        {icon: fileIcon, name: "sleepy_cads6.gif", parent: 7, id: 9, image: 'sleepy_cads6'},
-        {icon: fileIcon, name: "take_break_from_your_bs.gif", parent: 7, id: 9, image: 'take_break_from_your_bs'},
-        {icon: fileIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside'},
-        {icon: fileIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman'},
-        {icon: fileIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me'}
+        {icon: imgIcon, name: "photogenic_fluff.gif", parent: 7, id: 9, image: 'photogenic_fluff'},
+        {icon: imgIcon, name: "sleepy_cads2.gif", parent: 7, id: 9, image: 'sleepy_cads2'},
+        {icon: imgIcon, name: "sleepy_cads3.gif", parent: 7, id: 9, image: 'sleepy_cads3'},
+        {icon: imgIcon, name: "sleepy_cads4.gif", parent: 7, id: 9, image: 'sleepy_cads4'},
+        {icon: imgIcon, name: "sleepy_cads5.gif", parent: 7, id: 9, image: 'sleepy_cads5'},
+        {icon: imgIcon, name: "sleepy_cads6.gif", parent: 7, id: 9, image: 'sleepy_cads6'},
+        {icon: imgIcon, name: "take_break_from_your_bs.gif", parent: 7, id: 9, image: 'take_break_from_your_bs'},
+        {icon: imgIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside'},
+        {icon: imgIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman'},
+        {icon: imgIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me'}
 
 
     ]
 
     dialog = myDialog(this)
 
-    createFile(files[0], 10 + fileSize/2,10 + fileSize/2)
+    createFile(files[0], 120 + fileSize/2,10 + fileSize/2)
+    createFile({icon: trashcan, name: "Recycle Bin", parent: -1}, 10 + fileSize/2, 10 + fileSize/2)
 }
 
 let directory = []
