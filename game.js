@@ -50,10 +50,10 @@ scene.create = function () {
     openFileDialog = openFileDialog.bind(this)
 
     files = [
-        {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
-        {text: "abc", parent: 0, id: 1, children: [3]},
+        {name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
+        {name: "abc", parent: 0, id: 1, children: [3]},
         {
-            text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+            name: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
                 "of aviation,\n" +
                 "\n" +
                 "  \n" +
@@ -68,10 +68,10 @@ scene.create = function () {
                 "The bee, of course, flies anyway\n",
             objective: objectives.something
         },
-        {text: "pictures", children: [7, 8], parent: 1, id: 5},
-        {text: "def", parent: 1, id: 6},
-        {text: "cat picture", parent: 5, id: 7, image: 'catImage'},
-        {text: "picture-1", parent: 5, id: 8, objective: objectives.final}
+        {name: "pictures", children: [7, 8], parent: 1, id: 5},
+        {name: "def", parent: 1, id: 6},
+        {name: "cat picture", parent: 5, id: 7, image: 'catImage'},
+        {name: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
     myFileWindow = fileWindow(-1, true)
 }
@@ -108,7 +108,7 @@ function fileWindow(parentID, down) {
         const parent = files.find(file => file.id === parentID);
 
         if (parent !== undefined) {
-            directory.push(parent.text);
+            directory.push(parent.name);
         }
 
         const txt = this.add.text(origin.x + 10 + margin, origin.y, directory.join(' > '), textConfig);
@@ -133,7 +133,7 @@ function fileWindow(parentID, down) {
         const text = this.make.text({
             x: origin.x + x + margin + fileSize/2,
             y: origin.y + y + fileSize + 50,
-            text: currentFile.text,
+            text: currentFile.name,
             origin: 0.5,
             style: {
                 font: 'bold 11px Arial',
