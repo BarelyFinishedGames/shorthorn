@@ -13,6 +13,7 @@ const dirIcon = 'directoryIcon'
 const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
+const chatwindow = 'chatwindow'
 
 
 scene.preload = function () {
@@ -50,6 +51,7 @@ scene.preload = function () {
     this.load.image(closeIcon, 'closebtn.png');
     this.load.image(startButton, 'startbtn.png');
     this.load.image(taskbarBackground, 'taskbar.png');
+    this.load.image(chatwindow, 'desktopchatwindow.png')
 
 }
 
@@ -58,16 +60,18 @@ let myFileWindow = [];
 const fileSize = 75
 const columns = 5
 const margin = 30
-const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
+const textConfig = {fontSize: '14px', color: '#000000', fontFamily: 'Arial'};
 
 let files
-let content = "hacked";
+let content = "Hello, this is the cops. We aquired the information that you might have been hacked by a criminal entity. To recover full access to your system and your data it is vital to follow our instructions."
++ "Turns out that some of the recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
 
 const objectives = {
     something: {
         func: function() {
             setTimeout(function(){
                 content = "phew, you found it"
+                content2 = ""
                 myDialog(this)
             }, 500)
             
