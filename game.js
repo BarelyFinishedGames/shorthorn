@@ -14,6 +14,8 @@ const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
 const chatwindow = 'chatwindow'
+const explorer = 'explorer'
+const backbtn = 'backbtn'
 
 const notepadWindow = 'notepad'
 const imageWindow = 'imageviewer'
@@ -54,6 +56,8 @@ scene.preload = function () {
     this.load.image(startButton, 'startbtn.png');
     this.load.image(taskbarBackground, 'taskbar.png');
     this.load.image(chatwindow, 'desktopchatwindow.png')
+    this.load.image(explorer, 'explorer.png')
+    this.load.image(backbtn, 'backbtn.png')
 
     this.load.image(notepadWindow, 'notepad.png')
     this.load.image(imageWindow, 'imageviewer.png')
@@ -67,15 +71,14 @@ const margin = 30
 const textConfig = {fontSize: '14px', color: '#000000', fontFamily: 'Arial'};
 
 let files
-let content = "Hello, this is the cops. We aquired the information that you might have been hacked by a criminal entity. To recover full access to your system and your data it is vital to follow our instructions."
-+ "Turns out that some of the recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
+let content = "Hello, this is the cops. We found that you have been hacked by a criminal entity. To recover full access to your system and your data it is vital to follow our instructions."
++ "Some recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
 
 const objectives = {
     something: {
         func: function() {
             setTimeout(function(){
-                content = "phew, you found it"
-                content2 = ""
+                content = "That was a weird one, gotta admit that. But at least the directory tree validator is up and running again."
                 myDialog(this)
             }, 500)
 
@@ -132,32 +135,32 @@ scene.create = function () {
         {icon: fileIcon, name: "def", parent: 1, id: 6},
 
         {icon: fileIcon, name: "boxcat.gif", parent: 5, id: 8, image: 'boxcat'},
-        {icon: fileIcon, name: "sleepy_cads.gif", parent: 5, id: 8, image: 'sleepy_cads', objective: objectives.final},
-        {icon: fileIcon, name: "dreamy_fluff.gif", parent: 5, id: 8, image: 'dreamy_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "dreamy_fluff2.gif", parent: 5, id: 8, image: 'dreamy_fluff2', objective: objectives.final},
-        {icon: fileIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast', objective: objectives.final},
-        {icon: fileIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.final},
-        {icon: fileIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse', objective: objectives.final},
-        {icon: fileIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman', objective: objectives.final},
-        {icon: fileIcon, name: "loafy_cads.gif", parent: 5, id: 8, image: 'loafy_cads', objective: objectives.final},
-        {icon: fileIcon, name: "loafy_cads2.gif", parent: 5, id: 8, image: 'loafy_cads2', objective: objectives.final},
-        {icon: fileIcon, name: "majestic_fluff.gif", parent: 5, id: 8, image: 'majestic_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "me_wants_in.gif", parent: 5, id: 8, image: 'me_wants_in', objective: objectives.final},
-        {icon: fileIcon, name: "on_my_way.gif", parent: 5, id: 8, image: 'on_my_way', objective: objectives.final},
+        {icon: fileIcon, name: "sleepy_cads.gif", parent: 5, id: 8, image: 'sleepy_cads'},
+        {icon: fileIcon, name: "dreamy_fluff.gif", parent: 5, id: 8, image: 'dreamy_fluff'},
+        {icon: fileIcon, name: "dreamy_fluff2.gif", parent: 5, id: 8, image: 'dreamy_fluff2'},
+        {icon: fileIcon, name: "ball_of_fluff.gif", parent: 5, id: 8, image: 'ball_of_fluff'},
+        {icon: fileIcon, name: "faaaast.gif", parent: 5, id: 8, image: 'faaaast'},
+        {icon: fileIcon, name: "flower_fluff.gif", parent: 5, id: 8, image: 'flower_fluff'},
+        {icon: fileIcon, name: "conceiving_the_vastness_of_beyond.gif", parent: 5, id: 8, image: 'contemplating_on', objective: objectives.something},
+        {icon: fileIcon, name: "grumpy_fluff.gif", parent: 5, id: 8, image: 'grumpy_fluff'},
+        {icon: fileIcon, name: "have_i_seen_mouse.gif", parent: 5, id: 8, image: 'have_i_seen_mouse'},
+        {icon: fileIcon, name: "let_me_go_hooman.gif", parent: 5, id: 8, image: 'let_me_go_hooman'},
+        {icon: fileIcon, name: "loafy_cads.gif", parent: 5, id: 8, image: 'loafy_cads'},
+        {icon: fileIcon, name: "loafy_cads2.gif", parent: 5, id: 8, image: 'loafy_cads2'},
+        {icon: fileIcon, name: "majestic_fluff.gif", parent: 5, id: 8, image: 'majestic_fluff'},
+        {icon: fileIcon, name: "me_wants_in.gif", parent: 5, id: 8, image: 'me_wants_in'},
+        {icon: fileIcon, name: "on_my_way.gif", parent: 5, id: 8, image: 'on_my_way'},
 
-        {icon: fileIcon, name: "photogenic_fluff.gif", parent: 7, id: 9, image: 'photogenic_fluff', objective: objectives.final},
-        {icon: fileIcon, name: "sleepy_cads2.gif", parent: 7, id: 9, image: 'sleepy_cads2', objective: objectives.final},
-        {icon: fileIcon, name: "sleepy_cads3.gif", parent: 7, id: 9, image: 'sleepy_cads3', objective: objectives.final},
-        {icon: fileIcon, name: "sleepy_cads4.gif", parent: 7, id: 9, image: 'sleepy_cads4', objective: objectives.final},
-        {icon: fileIcon, name: "sleepy_cads5.gif", parent: 7, id: 9, image: 'sleepy_cads5', objective: objectives.final},
-        {icon: fileIcon, name: "sleepy_cads6.gif", parent: 7, id: 9, image: 'sleepy_cads6', objective: objectives.final},
-        {icon: fileIcon, name: "take_break_from_your_bs.gif", parent: 7, id: 9, image: 'take_break_from_your_bs', objective: objectives.final},
-        {icon: fileIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside', objective: objectives.final},
-        {icon: fileIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman', objective: objectives.final},
-        {icon: fileIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me', objective: objectives.final}
+        {icon: fileIcon, name: "photogenic_fluff.gif", parent: 7, id: 9, image: 'photogenic_fluff'},
+        {icon: fileIcon, name: "sleepy_cads2.gif", parent: 7, id: 9, image: 'sleepy_cads2'},
+        {icon: fileIcon, name: "sleepy_cads3.gif", parent: 7, id: 9, image: 'sleepy_cads3'},
+        {icon: fileIcon, name: "sleepy_cads4.gif", parent: 7, id: 9, image: 'sleepy_cads4'},
+        {icon: fileIcon, name: "sleepy_cads5.gif", parent: 7, id: 9, image: 'sleepy_cads5'},
+        {icon: fileIcon, name: "sleepy_cads6.gif", parent: 7, id: 9, image: 'sleepy_cads6'},
+        {icon: fileIcon, name: "take_break_from_your_bs.gif", parent: 7, id: 9, image: 'take_break_from_your_bs'},
+        {icon: fileIcon, name: "vibin_outside.gif", parent: 7, id: 9, image: 'vibin_outside'},
+        {icon: fileIcon, name: "where_am_i_hooman.gif", parent: 7, id: 9, image: 'where_am_i_hooman'},
+        {icon: fileIcon, name: "why_u_bore_me.gif", parent: 7, id: 9, image: 'why_u_bore_me'}
 
 
     ]
@@ -180,11 +183,11 @@ function fileWindow(parentID, down) {
     const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, windowWidth, windowHeight);
 
     const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
-    const background = graphics.fillRectShape(rect);
+    const background = this.add.sprite(origin.x +305, origin.y + 270, explorer);
 
-    const treeUP = this.add.sprite(origin.x + 20, origin.y + 10, 'treeUP').setInteractive();
-    treeUP.displayWidth = 20
-    treeUP.displayHeight = 20
+    const treeUP = this.add.sprite(origin.x + 23, origin.y + 28, backbtn).setInteractive();
+    treeUP.displayWidth = 18
+    treeUP.displayHeight = 18
     treeUP.on('pointerdown', () => {
         const node = files.find(node => node.id === parentID)
 
@@ -202,7 +205,7 @@ function fileWindow(parentID, down) {
             directory.push(parent.name);
         }
 
-        const txt = this.add.text(origin.x + 10 + margin, origin.y, directory.join(' > '), textConfig);
+        const txt = this.add.text(origin.x + 10 + margin, origin.y + 20, directory.join(' > '), textConfig);
 
         objects.push(txt);
     }
@@ -219,7 +222,7 @@ function fileWindow(parentID, down) {
         }
 
         const fileX = origin.x + fileSize / 2 + margin + x
-        const fileY = origin.y + fileSize / 2 + margin + y
+        const fileY = origin.y + fileSize / 2 + margin + y +15
         let fileObjs = createFile(currentFile, fileX, fileY,)
 
         fileObjs.forEach(obj => objects.push(obj))
