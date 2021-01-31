@@ -72,7 +72,7 @@ let myFileWindow = [];
 const fileSize = 75
 const columns = 5
 const margin = 30
-const textConfig = {fontSize: '14px', color: '#000000', fontFamily: 'Arial'};
+const textConfig = {fontSize: '12px', color: '#000000', fontFamily: 'Courier New'};
 
 let files
 let content = "Hello, this is the cops. We found that you have been hacked by a criminal entity. To recover full access to your system and your data it is vital to follow our instructions."
