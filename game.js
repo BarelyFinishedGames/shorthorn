@@ -8,12 +8,21 @@ const config = {
 };
 const game = new Phaser.Game(config);
 
+const fileIcon = 'fileIcon'
+const dirIcon = 'directoryIcon'
+const closeIcon = 'closeIcon'
+const startButton = 'startButton'
+const taskbarBackground = 'taskbar'
 
 scene.preload = function () {
-    this.load.setBaseURL('/');
+    this.load.setBaseURL('/sprites');
 
-    this.load.image('file', 'file.png');
+    this.load.image(fileIcon, 'file.png');
+    this.load.image(dirIcon, 'directory.png');
     this.load.image('catImage', 'cat-23.gif');
+    this.load.image(closeIcon, 'closebtn.png');
+    this.load.image(startButton, 'startbtn.png');
+    this.load.image(taskbarBackground, 'taskbar.png');
 
 }
 
@@ -25,16 +34,38 @@ const margin = 30
 const textConfig = {fontSize: '16px', color: '#000000', fontFamily: 'Arial'};
 
 let files
+
+const objectives = {
+    something: {
+        func: function() {
+            alert("oh hai")
+        },
+        depends: [],
+        complete: false,
+    },
+    final: {
+        func: function () {
+            console.log(this)
+            alert("you did it")
+        },
+        depends: ['something'],
+        complete: false,
+    },
+}
+
 scene.create = function () {
 
+    createTaskbar = createTaskbar.bind(this)
     fileWindow = fileWindow.bind(this)
     openFileDialog = openFileDialog.bind(this)
     myDialog = myDialog.bind(this)
 
+    createTaskbar()
     files = [
-        {text: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
-        {text: "abc", parent: 0, id: 1, children: [3]},
-        {text: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
+        {icon: dirIcon, name: "allesAusserBilder", children: [1, 2], id: 0, parent: -1},
+        {icon: dirIcon, name: "abc", parent: 0, id: 1, children: [3]},
+        {
+            icon: fileIcon, name: "hello.txt", parent: 0, id: 4, content: "According to all known laws\n" +
                 "of aviation,\n" +
                 "\n" +
                 "  \n" +
@@ -46,11 +77,13 @@ scene.create = function () {
                 "its fat little body off the ground.\n" +
                 "\n" +
                 "  \n" +
-                "The bee, of course, flies anyway\n"},
-        {text: "pictures", children: [7, 8], parent: 1, id: 5},
-        {text: "def", parent: 1, id: 6},
-        {text: "cat picture", parent: 5, id: 7, image: 'catImage'},
-        {text: "picture-1", parent: 5, id: 8}
+                "The bee, of course, flies anyway\n",
+            objective: objectives.something
+        },
+        {icon: dirIcon, name: "pictures", children: [7, 8], parent: 1, id: 5},
+        {icon: fileIcon, name: "def", parent: 1, id: 6},
+        {icon: fileIcon, name: "cat picture", parent: 5, id: 7, image: 'catImage'},
+        {icon: fileIcon, name: "picture-1", parent: 5, id: 8, objective: objectives.final}
     ]
     myFileWindow = fileWindow(-1, true)
     dialog = myDialog(this)
@@ -72,7 +105,7 @@ function fileWindow(parentID, down) {
     const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
     const background = graphics.fillRectShape(rect);
 
-    const treeUP = this.add.sprite(origin.x, origin.y, 'treeUP').setInteractive();
+    const treeUP = this.add.sprite(origin.x + 20, origin.y + 10, 'treeUP').setInteractive();
     treeUP.displayWidth = 20
     treeUP.displayHeight = 20
     treeUP.on('pointerdown', () => {
@@ -89,7 +122,7 @@ function fileWindow(parentID, down) {
         const parent = files.find(file => file.id === parentID);
 
         if (parent !== undefined) {
-            directory.push(parent.text);
+            directory.push(parent.name);
         }
 
         const txt = this.add.text(origin.x + 10 + margin, origin.y, directory.join(' > '), textConfig);
@@ -107,14 +140,15 @@ function fileWindow(parentID, down) {
             y += fileSize + margin + 20
             x = 0
         }
-        const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, 'file').setInteractive();
+
+        const file = this.add.sprite(origin.x + fileSize / 2 + margin + x, origin.y + fileSize / 2 + margin + y, currentFile.icon).setInteractive();
         file.displayWidth = fileSize
         file.displayHeight = fileSize
 
         const text = this.make.text({
             x: origin.x + x + margin + fileSize/2,
             y: origin.y + y + fileSize + 50,
-            text: currentFile.text,
+            text: currentFile.name,
             origin: 0.5,
             style: {
                 font: 'bold 11px Arial',
@@ -124,17 +158,11 @@ function fileWindow(parentID, down) {
         text.setWordWrapWidth(fileSize, false);
         const txt = this.add.text(text);
 
-        if (currentFile.children) {
-            file.on('pointerdown', () => {
-                console.log("clickedi cklick")
-                fileWindow(currentFile.id, true)
-            })
-        }
-        if (currentFile.content || currentFile.image) {
-            file.on('pointerdown', () => {
-                openFileDialog(currentFile)
-            })
-        }
+
+        file.on('pointerdown', () => {
+            handleFileClick(currentFile)
+        })
+
         objects.push(file)
         objects.push(txt)
         objects.push(background)
@@ -145,6 +173,25 @@ function fileWindow(parentID, down) {
     })
 
     return objects
+}
+
+function handleFileClick(file) {
+
+    if (file.children) {
+            console.log("clickedi cklick")
+            fileWindow(file.id, true)
+    }
+    if (file.content || file.image) {
+            openFileDialog(file)
+    }
+    if (file.objective) {
+        const uncompleteDependency = file.objective.depends.find((key) => objectives[key].complete !== true)
+        if (!uncompleteDependency) {
+            file.objective.complete = true
+            console.log("completed objective " + JSON.stringify(file.objective))
+            file.objective.func()
+        }
+    }
 }
 
 function openFileDialog(file) {
@@ -181,9 +228,10 @@ function openFileDialog(file) {
         objects.push(sprite)
     }
 
-    const btnClose = this.add.sprite(origin.x + width, origin.y, 'closeButton').setInteractive();
-    btnClose.displayWidth = 20
-    btnClose.displayHeight = 20
+    const closeBtnSize = 20
+    const btnClose = this.add.sprite(origin.x + width - closeBtnSize/2, origin.y + closeBtnSize / 2, closeIcon).setInteractive();
+    btnClose.displayWidth = closeBtnSize
+    btnClose.displayHeight = closeBtnSize
 
     objects.push(btnClose)
 
