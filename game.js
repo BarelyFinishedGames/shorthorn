@@ -89,8 +89,6 @@ const objectives = {
                 + "\n \n" + "The next one is a little tricky: Some recovery functionalities have been transfered to one of your bazillion cat images... I knew your compulsive hoarding of feline files would be a problem! I think it’s the one with the kinda weird name..."
                 myDialog(this)
             }, 500)
-
-            // alert("oh hai")
         },
         depends: [],
         complete: false,
@@ -102,8 +100,6 @@ const objectives = {
                 + "\n \n" + "So yeah, your System is recovered, congrats!"
                 myDialog(this)
             }, 500)
-
-            // alert("you did it")
         },
         depends: ['something'],
         complete: false,
@@ -193,11 +189,8 @@ function fileWindow(parentID, down) {
     myFileWindow.forEach(obj => obj.destroy())
 
     let objects = []
-    const numFiles = files.length
     const origin = new Phaser.Math.Vector3(100, 100, 0)
     const windowWidth = 600
-    const windowHeight = 550
-    const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, windowWidth, windowHeight);
 
     const graphics = this.add.graphics({fillStyle: {color: 0xff0000}});
     const background = this.add.sprite(origin.x +305, origin.y + 270, explorer);
