@@ -14,7 +14,7 @@ const closeIcon = 'closeIcon'
 const startButton = 'startButton'
 const taskbarBackground = 'taskbar'
 const notepadWindow = 'notepad'
-
+const imageWindow = 'imageviewer'
 
 scene.preload = function () {
     this.load.setBaseURL('/sprites');
@@ -52,6 +52,7 @@ scene.preload = function () {
     this.load.image(startButton, 'startbtn.png');
     this.load.image(taskbarBackground, 'taskbar.png');
     this.load.image(notepadWindow, 'notepad.png')
+    this.load.image(imageWindow, 'imageviewer.png')
 }
 
 
@@ -71,7 +72,7 @@ const objectives = {
                 content = "phew, you found it"
                 myDialog(this)
             }, 500)
-            
+
             // alert("oh hai")
         },
         depends: [],
@@ -83,7 +84,7 @@ const objectives = {
                 content = "You did it!"
                 myDialog(this)
             }, 500)
-            
+
             // alert("you did it")
         },
         depends: ['something'],
@@ -95,7 +96,7 @@ scene.create = function () {
 
     createTaskbar = createTaskbar.bind(this)
     fileWindow = fileWindow.bind(this)
-    openFileDialog = openFileDialog.bind(this)
+    showImage = showImage.bind(this)
     myDialog = myDialog.bind(this)
     createFile = createFile.bind(this)
     showTextfile = showTextfile.bind(this)
@@ -270,7 +271,7 @@ function handleFileClick(file) {
             myFileWindow = fileWindow(file.id, true)
     }
     if (file.image) {
-            openFileDialog(file)
+        showImage(file, 100, 100)
     }
     if (file.content) {
         showTextfile(file, 100,100)
@@ -285,48 +286,3 @@ function handleFileClick(file) {
     }
 }
 
-function openFileDialog(file) {
-    const origin = new Phaser.Math.Vector3(100, 100, 0)
-    const width = 400;
-    const height = 400;
-    const rect = new Phaser.Geom.Rectangle(origin.x, origin.y, width, height);
-
-    const graphics = this.add.graphics({fillStyle: {color: 0xc3b9c2}});
-    const background = graphics.fillRectShape(rect);
-    let objects = [graphics, background]
-    if (file.content) {
-        const text = this.make.text({
-            x: origin.x + width/2,
-            y: origin.y + height/2,
-            text: file.content,
-            origin: 0.5,
-            style: {
-                font: 'bold 11px Arial',
-                fill: 'black'
-            }
-        });
-        text.setWordWrapWidth(width, false);
-        const txt = this.add.text(text);
-        objects.push(txt, text)
-
-    } else if (file.image) {
-
-        const imgWidth = width - 8;
-        const imgHeight = height - 8;
-        const sprite = this.add.sprite(origin.x + imgWidth/2 + 4, origin.y + imgHeight/2 + 4, file.image)
-        sprite.displayWidth = imgWidth
-        sprite.displayHeight = imgHeight
-        objects.push(sprite)
-    }
-
-    const closeBtnSize = 20
-    const btnClose = this.add.sprite(origin.x + width - closeBtnSize/2, origin.y + closeBtnSize / 2, closeIcon).setInteractive();
-    btnClose.displayWidth = closeBtnSize
-    btnClose.displayHeight = closeBtnSize
-
-    objects.push(btnClose)
-
-    btnClose.on('pointerdown', () => {
-        objects.forEach(obj => {console.log(obj);obj.destroy()})
-    })
-}
