@@ -66,6 +66,7 @@ scene.preload = function () {
 
     this.load.image('screensaver', 'screensaver.jpg')
     this.load.audio('popupSound', '../sounds/popup.ogg')
+    this.load.audio('soundtrack', '../sounds/hacked_song.ogg')
 }
 
 
@@ -117,6 +118,8 @@ scene.create = function () {
     myDialog = myDialog.bind(this)
     createFile = createFile.bind(this)
     showTextfile = showTextfile.bind(this)
+
+    this.sound.add('soundtrack').play()
 
     files = [
         {icon: dirIcon, name: "User", children: [1, 2], id: 0, parent: -1},
