@@ -21,7 +21,7 @@ const notepadWindow = 'notepad'
 const imageWindow = 'imageviewer'
 
 scene.preload = function () {
-    this.load.setBaseURL('/sprites');
+    this.load.setBaseURL('sprites');
 
     this.load.image(fileIcon, 'file.png');
     this.load.image(dirIcon, 'directory.png');
@@ -61,6 +61,8 @@ scene.preload = function () {
 
     this.load.image(notepadWindow, 'notepad.png')
     this.load.image(imageWindow, 'imageviewer.png')
+
+    this.load.audio('popupSound', '../sounds/popup.ogg')
 }
 
 
